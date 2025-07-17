@@ -4,6 +4,7 @@ import { revalidatePath } from  'next/cache'
 import { redirect } from 'next/navigation'
 
 import { createClient } from '@/utils/supabase/server';
+import posthog from 'posthog-js';
 
 export async function login(formData: FormData) {
   const supabase = await createClient()
@@ -21,6 +22,7 @@ export async function login(formData: FormData) {
 
   revalidatePath('/', 'layout')
   redirect('/account')
+
 
 }
 
