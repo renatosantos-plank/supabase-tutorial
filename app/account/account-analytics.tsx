@@ -2,8 +2,9 @@
 
 import { useEffect } from "react"
 import posthog from "posthog-js"
+import { type User } from "@supabase/supabase-js"
 
-export default function AccountAnalytics({ user }) {
+export default function AccountAnalytics({ user } : { user: User | null }) {
   useEffect(() => {
     if (user) {
       posthog.identify(user.id, { email: user.email })
