@@ -20,8 +20,16 @@ export async function login(formData: FormData) {
     redirect('/error')
   }
 
+  const { data: user } = await supabase.auth.getUser()
+  console.log(user)
+  if (user) {
+    posthog.identify(user?.user?.id, { email: user.user?.email })
+    posthog.capture('user_logged_in', { email: user?.user?.email })
+  }
   revalidatePath('/', 'layout')
   redirect('/account')
+
+  
 
 
 }
